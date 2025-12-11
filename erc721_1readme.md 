@@ -71,3 +71,123 @@ abstract contract Animal {
 
 
 This contract is abstract because makeSound() has no body.
+
+
+
+Make sure the receiver (to) is safe
+
+After transferring the NFT, the function checks:
+
+require(
+    to.code.length == 0 ||
+    IERC721Receiver(to).onERC721Received(msg.sender, from, id, "")
+        == IERC721Receiver.onERC721Received.selector,
+    "unsafe recipient"
+);
+
+This is the safety check.
+
+✔ What it checks?
+Case 1 — If to is a normal wallet
+
+to.code.length == 0
+
+EOAs (wallets like MetaMask) have no code
+
+So they pass the check
+
+Safe transfer succeeds
+
+Case 2 — If to is a smart contract
+
+Then the contract must implement:
+
+onERC721Received(...)
+
+
+This function must return:
+
+IERC721Receiver.onERC721Received.selector
+
+
+If it does NOT, NFT may get stuck in the contract forever → so safeTransferFrom rejects it.
+
+
+
+function safeTransferFrom(
+    address from,
+    address to,
+    uint256 id,
+    bytes calldata data
+) external {
+    transferFrom(from, to, id);
+
+    require(
+        to.code.length == 0 ||
+        IERC721Receiver(to).onERC721Received(
+            msg.sender,
+            from,
+            id,
+            data
+        ) == IERC721Receiver.onERC721Received.selector,
+        "unsafe recipient"
+    );
+}
+
+
+📌 Purpose
+
+This version allows sending extra data along with the NFT.
+
+Example uses:
+
+Marketplace sending extra instructions
+
+Gaming NFTs sending metadata to contracts
+
+Smart contracts receiving NFTs with additional logic
+
+Escrow contracts passing parameters
+
+✔️ What is data used for?
+
+A bytes payload that the receiving contract can read.
+
+
+
+2️⃣ Why emit Transfer(address(0), to, id) ?
+👉 Very simple answer:
+
+Because minting is treated as a transfer from the zero address.
+
+In ERC721 standard:
+
+When minting → NFT comes from nowhere
+
+So from address = address(0)
+
+To address = owner wallet
+
+
+Why emit Transfer(address(0), to, id)?
+
+Because minting = creating a new token.
+And a newly created token comes from nowhere → so the from address = 0x000…000.
+
+This is the official ERC-20 and ERC-721 standard rule.
+
+
+📌 ERC-20 mint event:
+Transfer(address(0), to, amount)
+
+📌 ERC-721 mint event:
+Transfer(address(0), to, tokenId)
+
+
+So yes — every mint event in both ERC-20 and ERC-721 uses address(0) as the sender.
+
+So your understanding is correct:
+
+✔️ Mint function → always uses address(0) as the from address
+✔️ This is the same rule in ERC-20, ERC-721, and ERC-1155
+✔️ Required by the token standardsunderstand 
