@@ -1,0 +1,11 @@
+------------ ERC20 issue kya the --------------
+
+jab hum kese contract , address ko token transfer karte hai to hum approve karte the then hum transferfrom function call karte the yaha par probem hai gas fees ka 
+hume gas fees jayda pay krna pad rh hai  is sare prorblem ko solve krne ke liye humare pass hai ERC20 permit token 
+
+
+yaha par spender gas fees pay karta hai
+spender ==> gas fees
+owner===>offchain message sign ==> signature ==> V,R,S, ===> spender 
+
+
