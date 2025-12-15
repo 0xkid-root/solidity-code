@@ -33,6 +33,19 @@ contract lottery{
     );
 }
 
+   function selectWinner() public {
+    require(msg.sender == manager);
+    require(participants.length>3);
+    uint r = random();
+    address payable winner;
+    uint index = r % participants.length;
+    winner=participants[index];
+    winner.transfer(getBalance());
+    participants= new address payable[](0);
+
+
+   }
+
 
 
 
