@@ -33,5 +33,12 @@ contract CroudFunding{
 
     }
 
+     // contract balance cehck function ----- 
+
+    function getContractBalance() public view returns(uint){
+        return address(this).balance;
+        
+    }
+
 
 }
