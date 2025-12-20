@@ -84,5 +84,15 @@ contract CroudFunding{
         thisRequest.noOfVoters++;
     }
 
+    function makePayment(uint _requestNo) public onlyOwner{
+        require(raisedAmount>=target);
+        Request storage thisRequest = requests[_requestNo];
+        require(thisRequest.completed==false,"this request has been completed!");
+        require(thisRequest.noOfVoters > noOFContributors/2,"majority does not support");
+        thisRequest.recipient.transfer(thisRequest.value);
+        thisRequest.completed=true;
+
+    }
+
 
 }
