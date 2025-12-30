@@ -49,3 +49,18 @@ There's an issue with the command you provided:
 4. Transactions are sent to the specified RPC endpoint
 5. The contract gets deployed to the blockchain
 
+
+
+cast ke through hum smart contract se read,write transaction manage kar skate hai 
+
+jab hum read karte hai to call ka use karte haiu jab hum write karte hai ti send ka method use karte hai 
+
+(cast call)
+
+(cast send)
+
+cast call 0x5FbDB2315678afecb367f032d93F642f64180aa3 "number()"
+
+hex to decimal conversion ---
+
+cast --to-base 0x2a dec
