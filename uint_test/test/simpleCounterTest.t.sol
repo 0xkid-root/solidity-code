@@ -21,4 +21,10 @@ contract CounterTest is Test {
         counter.setCount(x);
         assertEq(counter.getCount(), x);
     }
+
+    function testRevert_decrement() public{
+        counter.setCount(0);
+        vm.expectRevert(bytes("underflow"));
+        counter.decrement();
+    }
 }

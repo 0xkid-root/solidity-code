@@ -1,0 +1,14 @@
+forge test --rerun // jo failed hote hai sirf wahi run hote hai is se
+forge test // ye command mere test wale file me jitne v test likhe honge sab run kar dega
+forge test --match-test "test_Increment" // is command se hum only test_Increment wale he function ko test kar sakte hai humne yaha filter kiya hai 
+
+forge test --match-test "^test" // is se kya hoga kee jes testcase me test name hoga wo sab run kar jaye gaa
+
+forge test --no-match-test "^testF" // is se kya hoga kee jes testcase me testF name hoga wo sab run nhi kar jayega
+
+Before test setups  :-
+Unit and fuzz tests are stateless and are executed as single transactions, meaning that the state modified by a test won't be available for a different one (instead, they'll use the same state created by setUp call). It is possible to simulate multiple transactions in a single test, with a dependency tree, by implementing the beforeTestSetup function.
+
+ContractTest
+
+forge test --match-contract ContractTest --match-test "testC"
