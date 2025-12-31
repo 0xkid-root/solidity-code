@@ -1,8 +1,12 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+import {Test} from "forge-std/Test.sol";
+
 contract ContractTest is Test {
     uint256 a;
     uint256 b;
  
-    function beforeTestSetup(
+    function beforeTestSCetup(
         bytes4 testSelector
     ) public pure returns (bytes[] memory beforeTestCalldata) {
         if (testSelector == this.testC.selector) {
