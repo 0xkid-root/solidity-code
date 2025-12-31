@@ -21,6 +21,9 @@ contract simpleCounter {
     function _incrementLogic(uint256 _count) internal pure returns(uint256){
         return _count+1;
     }
+    //  hum testcases public and external function  ka he banna sakte hai,
+    // internal and private ka hum  test cases  nhi bana sakte hai 
+     
     function _decrement(uint256 _count) internal pure returns(uint256)
 {
     require(_count > 0);
